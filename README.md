@@ -36,6 +36,7 @@ flowchart LR
 
 - **App:** Next.js on Vercel, serving the UI, the API routes and a daily cron job.
 - **Files:** stored in the NGO's Google Shared Drives, one per department. The app uploads and indexes them through a service account, and users view them with the Drive preview.
+- **Existing material:** a one-time import. The NGO moves its files into the Shared Drives, we index them in bulk with suggested tags, categories and translation pairs, and staff approve the suggestions on a review screen. Items stay marked as unverified until someone checks them, and scanned PDFs without text are marked as such.
 - **Database and search:** Neon Postgres holds the items, metadata, users and links between the Hebrew and Arabic versions of each item. Search uses Postgres full-text search with `pg_trgm` to handle typos, and Hebrew and Arabic text is normalized the same way at indexing and at query time.
 - **Tagging:** suggested automatically when a file is indexed, and the user only confirms or removes them. Tags come from a fixed bilingual list with synonyms, matched against the normalized title and text. The region comes from a list of places. The category is suggested from the Drive folder, the matched tags and the most similar existing items. No document text leaves the system.
 - **Auth:** Google sign-in with Auth.js, open only to organization staff. The roles are viewer, department editor and admin.
